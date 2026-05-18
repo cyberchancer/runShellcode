@@ -18,18 +18,18 @@ Windows x64 position-independent shellcode that resolves `WinExec` from `kernel3
 ### Execution flow
 
 ```
-TEB (gs:[0x60])  ──►  PEB
-                       └─► PEB.Ldr (PEB_LDR_DATA, +0x18)
-                             └─► InMemoryOrderModuleList (+0x20)
+TEB (gs:[0x60])  ─►  PEB
+                       └► PEB.Ldr (PEB_LDR_DATA, +0x18)
+                             └► InMemoryOrderModuleList (+0x20)
                                    ├─ Flink 1: <exe>
                                    ├─ Flink 2: ntdll.dll
-                                   └─ Flink 3: kernel32.dll  ──►  DllBase (+0x20 from list link)
-                                                                   └─► PE Export Directory
+                                   └─ Flink 3: kernel32.dll  ─►  DllBase (+0x20 from list link)
+                                                                   └► PE Export Directory
                                                                          ├─ AddressTable
                                                                          ├─ NamePointerTable
                                                                          └─ OrdinalTable
-                                                                               └─► Match "WinExec"
-                                                                                     └─► WinExec("calc.exe", 1)
+                                                                               └► Match "WinExec"
+                                                                                     └► WinExec("calc.exe", 1)
 ```
 
 1. **Locate `kernel32.dll`** - From `gs:[0x60]` (PEB), read `PEB.Ldr` at `+0x18`, then walk `InMemoryOrderModuleList` (offset `+0x20` in `PEB_LDR_DATA`) three `Flink`s to reach `kernel32.dll`. `DllBase` is read from `+0x20` relative to the entry's `InMemoryOrderLinks` field.
@@ -97,6 +97,8 @@ After any change to the assembly:
 Compile on Windows x64.
 
 **MSVC:**
+
+From an **x64 Native Tools Command Prompt for VS**:
 
 ```cmd
 cl runShellcode.c
