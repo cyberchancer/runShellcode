@@ -19,8 +19,8 @@ Windows x64 position-independent shellcode that resolves `WinExec` from `kernel3
 
 ```
 TEB (gs:[0x60]) ─► PEB
-                       └► PEB.Ldr (PEB_LDR_DATA, +0x18)
-                            └► InMemoryOrderModuleList (+0x20)
+                    └► PEB.Ldr (PEB_LDR_DATA, +0x18)
+                          └► InMemoryOrderModuleList (+0x20)
                                 ├─ Flink 1: <exe>
                                 ├─ Flink 2: ntdll.dll
                                 └─ Flink 3: kernel32.dll ─► DllBase (+0x20 from list link)
