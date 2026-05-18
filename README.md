@@ -1,4 +1,4 @@
-# PopCalcShellcode
+# runShellcode - PopCalcShellcode
 
 Windows x64 position-independent shellcode that resolves `WinExec` from `kernel32.dll` at runtime and launches `calc.exe`. The core shellcode is **205 bytes** (no null bytes, with lightweight string obfuscation to reduce trivial static signatures). The C loader embeds it with a **7-byte epilogue** so the `CreateThread` routine returns cleanly, for a total embedded payload of **212 bytes**.
 
@@ -50,6 +50,7 @@ TEB (gs:[0x60])  ──►  PEB
 | `popcalcshellcode-asm.x64.asm` | NASM source for the shellcode |
 | `runShellcode.c` | Minimal loader: `VirtualAlloc (RW)` → copy → `VirtualProtect (RX)` → `CreateThread` → `WaitForSingleObject` |
 | `README.md` | This document |
+| `LICENSE` | MIT License |
 
 ## Prerequisites
 
@@ -173,4 +174,6 @@ Only techniques that actually describe behavior in this repository are listed:
 
 ## License
 
-No license file is included. Add one if you intend to distribute or share the code beyond private lab use.
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Manuel Diaz.
+
+The software is provided "as is", without warranty of any kind. See `LICENSE` for the full text.
