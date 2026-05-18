@@ -156,7 +156,7 @@ By the time control reaches the epilogue, the following bytes are still on the s
 
 If you modify the assembly's stack usage, recompute the epilogue's `add rsp, ...` delta accordingly and reassemble - the simplest way is to fold the epilogue back into the `.asm` file and re-extract.
 
-## MITRE ATT&CK (simulation context)
+## MITRE ATT&CK
 
 Only techniques that actually describe behavior in this repository are listed:
 
